@@ -1,0 +1,33 @@
+import numpy as np
+import pickle
+loaded_model=pickle.load(open('"C:/Users/Administrator/Desktop/streamlit app/model.pkl"','rb'))
+# Define a function to get user input and make predictions
+def predict_cirrhosis_probability():
+ #defining the features of the dataset
+    age = float(input("Enter age: "))
+    gender = int(input("Enter gender (0 for female, 1 for male): "))
+    total_bilirubin = float(input("Enter Total Bilirubin: "))
+    direct_bilirubin = float(input("Enter Direct Bilirubin: "))
+    alkaline_phosphotase = int(input("Enter Alkphos Alkaline Phosphotase: "))
+    alamine_aminotransferase = int(input("Enter Sgpt Alamine Aminotransferase: "))
+    aspartate_aminotransferase = int(input("Enter Sgot Aspartate Aminotransferase: "))
+    total_proteins = float(input("Enter TP Total Protiens: "))
+    albumin = float(input("Enter ALB Albumin: "))
+    albumin_globulin_ratio = float(input("Enter A/G Ratio Albumin and Globulin Ratio: "))
+
+    # Preprocess the user input as done during training
+    user_input = np.array([[age, gender, total_bilirubin, direct_bilirubin, alkaline_phosphotase,
+                            alamine_aminotransferase, aspartate_aminotransferase, total_proteins,
+                            albumin, albumin_globulin_ratio]])
+        #['AGE','GENDER','TB(Total Bilirubin)','DB(Direct Bilirubin)','Alkphos Alkaline Phosphotase','Sgpt  Alamine Aminotransferase','Sgot Aspartate Aminotransferase','TP Total Protiens','ALB Albumin','A/G Ratio Albumin and Globulin Ratio'])
+    user_input_poly = poly.transform(user_input)
+    user_input_scaled = scaler.transform(user_input_poly)
+
+    # Use the trained stacking model to make predictions1
+    probability = loaded_model.predict_proba(user_input_scaled)[0][1]
+    return probability
+
+# Call the function to get the predicted probability
+predicted_probability = predict_cirrhosis_probability()
+print("Predicted Probability of Liver Cirrhosis:", predicted_probability)
+print("If the value of predicted probability is less than 0.1204 then liver cirrhosis doesnt exists otherwise it does")
