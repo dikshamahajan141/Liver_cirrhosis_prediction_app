@@ -5,7 +5,7 @@ import sys
 sys.tracebacklimit = 0
 
 st.set_page_config(
-    page_title="Multi-predict app", 
+    page_title="Liver Cirrhosis Prediction", 
     page_icon="house",
 )
 data1=pd.read_csv('Liver cirrhosis UCI Dataset.csv')
